@@ -39,6 +39,16 @@ public class Board {
      * @return true if all the cells in the board are different than '-', false otherwise.
      */
     public boolean isFull() {
+        for (int i = 0; i < 3; i++) {
+
+            for (int k = 0; k < 3; k++) {
+                // Return as soon as empty cell found
+                if (this.board[i][k] == '-') {
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 
@@ -49,7 +59,8 @@ public class Board {
      * false otherwise.
      */
     public boolean isWin() {
-        return true;
+        // Check if any columns or rows or diagonals have matching cells
+        return this.checkColumns() || this.checkRows() || this.checkDiagonals();
     }
 
     /**
@@ -59,7 +70,21 @@ public class Board {
      * false otherwise.
      */
     private boolean checkRows() {
-        return true;
+        char checkChar;
+
+        // Start by rows
+        for (int i = 0; i < 3; i++) {
+            // Check if first cell is row is empty
+            if (this.board[i][0] != '-') {
+                // Set checkChar to first cell in row
+                checkChar = this.board[i][0];
+                // Check if remaining two cells in row match first cell in row
+                if (this.board[i][1] == checkChar && this.board[i][2] == checkChar) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -69,7 +94,19 @@ public class Board {
      * false otherwise.
      */
     private boolean checkColumns() {
-        return true;
+        char checkChar;
+        // Start by columns
+        for (int i = 0; i < 3; i++) {
+            if (this.board[0][i] != '-') {
+                // Set checkChar to first cell in col
+                checkChar = this.board[0][i];
+                // Check if remaining two cells in col match first cell in col
+                if (this.board[1][i] == checkChar && this.board[2][i] == checkChar) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -79,7 +116,30 @@ public class Board {
      * false otherwise.
      */
     private boolean checkDiagonals() {
-        return true;
+
+        char checkChar;
+        // Check first diagonal starting from upper left corner
+        // Check if upper left corner is empty
+        if (this.board[0][0] != '-') {
+            checkChar = this.board[0][0];
+            // Check if next two cells in diagonal match first cell
+            if (this.board[1][1] == checkChar && this.board[2][2] == checkChar) {
+                return true;
+            }
+        }
+
+        // Check first diagonal starting from upper right corner
+        // Check if upper right corner is empty
+        if (this.board[0][2] != '-') {
+            checkChar = this.board[0][0];
+            // Check if next two cells in diagonal match first cell
+            if (this.board[1][1] == checkChar && this.board[2][0] == checkChar) {
+                return true;
+            }
+        }
+
+        // Return false if diagonals not found
+        return false;
     }
 
     /**
@@ -87,7 +147,7 @@ public class Board {
      * If the currentPlayer is 'o', it changes to 'x'.
      */
     public void changePlayer() {
-
+        this.currentPlayer = (this.currentPlayer=='x') ? 'o' : 'x';
     }
 
     /**
@@ -96,6 +156,11 @@ public class Board {
      * remains unchanged and the method returns false.
      */
     public boolean setRowCol(int row, int col) {
+        if (this.board[row][col] != '-') {
+            return false;
+        }
+
+        this.board[row][col] = this.currentPlayer;
         return true;
     }
 }

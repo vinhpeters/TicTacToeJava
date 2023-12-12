@@ -27,9 +27,18 @@ public class Board {
      * Then the content of the board is printed as a 3 by 3 matrix.
      */
     public void print() {
+        // Print header
+        System.out.println("Current Board");
+        System.out.println("-------------");
         for (int i = 0; i < 3; i++) {
-            System.out.println(this.board[i]);
+            for (int k = 0; k < 3; k++) {
+                // Print each cell in the row
+                System.out.print(this.board[i][k] + "  ");
+            }
+            // New line at end of row
+            System.out.println();
         }
+
 
     }
 
@@ -147,7 +156,8 @@ public class Board {
      * If the currentPlayer is 'o', it changes to 'x'.
      */
     public void changePlayer() {
-        this.currentPlayer = (this.currentPlayer=='x') ? 'o' : 'x';
+        // Switch currentPlayer to other value
+        this.currentPlayer = (this.currentPlayer == 'x') ? 'o' : 'x';
     }
 
     /**
@@ -156,11 +166,18 @@ public class Board {
      * remains unchanged and the method returns false.
      */
     public boolean setRowCol(int row, int col) {
-        if (this.board[row][col] != '-') {
+        // Check if row and col within bounds
+        if (row < 1 || col < 1 || row > 3 || col > 3 ) {
+            System.out.println("Incorrect cell. Try again!");
             return false;
         }
-
-        this.board[row][col] = this.currentPlayer;
+        // Check if selected cell is empty
+        if (this.board[row-1][col-1] != '-') {
+            System.out.println("Incorrect cell. Try again!");
+            return false;
+        }
+        // Else set cell to currentPlayer
+        this.board[row-1][col-1] = this.currentPlayer;
         return true;
     }
 }

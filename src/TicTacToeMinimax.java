@@ -29,8 +29,14 @@ public class TicTacToeMinimax {
 
             while (true) {
                 // Can probably handle larger depths, but not sure if difficulty will really increase
-                System.out.print("Choose a difficulty: 1-2-3 : ");
+                System.out.print("Choose a difficulty: 1-2-3 \nEnter 0 for a custom depth: ");
                 depth = input.nextInt();
+
+                if (depth == 0) {
+                    System.out.print("Enter a depth: ");
+                    depth = input.nextInt();
+                    break;
+                }
 
                 if (depth > 0 && depth < 4) {
                     break;

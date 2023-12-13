@@ -46,7 +46,7 @@ public class TicTacToe {
                 System.out.println("The game is a tie!");
                 break;
             }
-            // Ask for x player move
+            // Ask for o player move
             System.out.print("o player: Enter row and column numbers:");
             row = input.nextInt();
             col = input.nextInt();
